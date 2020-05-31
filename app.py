@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, render_template
 import numpy as np
 import pickle
-from tensorflow.keras.models import load_model
+from tensorflow.keras import models
 from sklearn.externals.joblib import dump, load
 
 app = Flask(__name__)
