@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Churn Prediction</title>
+</head>
+<body>
+    <div class="login">
+        <h1>Predict Churn Analysis</h1>
+             <!-- Main Input For Receiving Query to our ML -->
+        <form action="{{ url_for('churnpredict')}}"method="post">
+            <input type="age" name="age" placeholder="age" required="required" />
+            <input type="balance" name="balance" placeholder="balance" required="required" />
+            <input type="IsActiveMember" name="IsActiveMember" placeholder="IsActiveMember" required="required" />
+            <input type="France" name="France" placeholder="France" required="required" />
+            <input type="Germany" name="Germany" placeholder="Germany" required="required" />
+            <input type="Spain" name="Spain" placeholder="Spain" required="required" />
+            <input type="Female" name="Female" placeholder="Female" required="required" />
+            <input type="Male" name="Male" placeholder="Male" required="required" />
+
+            <button type="submit" class="btn btn-primary btn-block btn-large">Predict Churn</button>
+        </form>
+       <br>
+       <br>
+       {{ prediction_text }}
+        {{ percent_text }}
+
+
+     </div>
+</body>
+</html>
