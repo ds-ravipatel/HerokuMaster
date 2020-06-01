@@ -2,7 +2,8 @@ from flask import Flask, request, jsonify, render_template
 import numpy as np
 import pickle
 from tensorflow.keras import models
-from sklearn.externals.joblib import dump, load
+#from sklearn.externals.joblib import dump, load
+from joblib import dump, load
 
 app = Flask(__name__)
 sal_model = pickle.load(open('Poly_LR_Model.pkl', 'rb'))
