@@ -2,13 +2,26 @@ from flask import Flask, request, jsonify, render_template
 import numpy as np
 import pickle
 from tensorflow.keras import models
-#from sklearn.externals.joblib import dump, load
-from joblib import dump, load
+from sklearn.externals.joblib import dump, load
+import tensorflow as tf
+from tensorflow import keras
 
 app = Flask(__name__)
+
+
+def auc(y_true, y_pred):
+    auc = tf.metrics.auc(y_true, y_pred)[1]
+    keras.backend.get_session().run(tf.local_variables_initializer())
+    return auc
+
 sal_model = pickle.load(open('Poly_LR_Model.pkl', 'rb'))
-churn_model = models.load_model('ChurnPredModel.h5')
-churn_ss = load('std_scaler.bin')
+# load the model, and pass in the custom metric function
+#global graph
+graph = tf.get_default_graph()
+churn_model = models.load_model('new_ChurnPredModel.h5', custom_objects={'auc': auc})
+
+#churn_model = models.load_model('ChurnPredModel.h5')
+churn_ss = load('new_std_scaler.bin')
 
 @app.route('/')
 def home():
@@ -46,11 +59,13 @@ def churnpredict():
     int_features = [int(x) for x in request.form.values()]
     int_features = np.array(int_features)
     #convert 1D array to 2D array.
-    input = int_features.reshape(1,8)
+    input = int_features.reshape(1,-1)
     #do standard scaling of input
     input = churn_ss.transform(input)
-    prediction = churn_model.predict(input)
-    output = prediction>0.5
+    with graph.as_default():
+        prediction = churn_model.predict(input)
+        prediction = prediction[0][0]
+        output = prediction>0.5
     return render_template('ChurnPrediction.html', prediction_text='Exited ? '.format(output), percent_text='Chances are : '.format(prediction))
 
 if __name__ == "__main__":
