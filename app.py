@@ -25,7 +25,7 @@ churn_ss = load('new_std_scaler.bin')
 
 @app.route('/')
 def home():
-    return render_template('MLHomePage.html')
+    return render_template('index.html')
 
 @app.route('/SalaryPrediction')
 def SalPred():

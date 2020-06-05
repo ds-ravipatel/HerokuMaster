@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>ML Use Cases</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+	<header>
+		<div class="main">
+			<ul>
+				<li><a href="#">Home</a></li>
+				<li><a href="#">About us</a></li>
+				<li><a href="#">Contact us</a></li>
+			</ul>
+		</div>
+		<div class="logo">
+				<h1>ML Use Cases</h1>
+		<div>
+		<div class="table">
+			<table cellpadding="5">
+			<tr>
+
+				<td align="center" valign="center">
+					<a href={{ url_for('SalPred') }}>
+						<img src={{ url_for('static', filename = "salary.jpg")}} alt="Salary Prediction" height=300px width=300px/>
+					</a>
+					<br />
+						Salary Prediction
+					<br />
+				</td>
+			
+				<td align="center" valign="center">
+					<a href="https://www.bing.com">
+						<img src= {{ url_for('static', filename = "HousePrice.jpg")}} alt="House Price Prediction" height=300px width=300px/>
+					</a>
+					<br />
+						House Price Prediction
+					<br/>
+				</td>
+
+				<td align="center" valign="center">
+					<a href={{ url_for('churnpred') }}>
+						<img src= {{ url_for('static', filename = "Customer1.jpg")}} alt="Customer Churn Prediction" height=300px width=300px/>
+					</a>
+					<br />
+						Customer Churn Prediction
+					<br />
+				</td>
+			
+				<td align="center" valign="center">
+					<a href="https://www.google.com">
+						<img src="wine.jpg" alt="Wine Quality Prediction" height=300px width=300px/>
+					</a>
+					<br />
+						Wine Quality Prediction
+					<br />
+				</td>
+
+			</tr>
+
+			</table>
+		</div>
+	</header>
+</body>
+</html>
