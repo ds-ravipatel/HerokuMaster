@@ -5,6 +5,9 @@ from tensorflow.keras import models
 from sklearn.externals.joblib import dump, load
 import tensorflow as tf
 from tensorflow import keras
+import re
+from nltk.stem.porter import PorterStemmer
+from nltk.corpus import stopwords
 
 app = Flask(__name__)
 
@@ -22,6 +25,12 @@ churn_model = models.load_model('new_ChurnPredModel.h5', custom_objects={'auc': 
 
 #churn_model = models.load_model('ChurnPredModel.h5')
 churn_ss = load('new_std_scaler.bin')
+
+#below is loaded for NLP- restaurant reviews
+dt_loaded = load('dt_model.pkl')
+cv_loaded = load('cv_obj.pkl')
+stop_words = stopwords.words('english')
+#
 
 @app.route('/')
 def home():
@@ -48,6 +57,28 @@ def predict():
     prediction = sal_model.predict(input)
     output = round(prediction[0], 2)
     return render_template('SalaryPrediction.html', prediction_text='Salary at this level should be $ {}'.format(output))
+
+@app.route('/RestaurantReviewPrediction')
+def RReviewPred():
+    return render_template('RestaurantReviewPrediction.html')
+
+@app.route('/RestaurantReviewPrediction/Predict', methods=['POST'])
+def RReviewPrediction():
+    #using below - parameters will be stored in variable
+    r = ""
+    r = [str(x) for x in request.form.values()]
+    r =  r[0]
+    l = []
+    r = r.lower()
+    r = re.sub('[^a-z0-9]+', ' ', r)
+    res_words = []
+    ps = PorterStemmer()
+    res_words = [ps.stem(word) for word in r.split() if word not in stop_words]
+    r = ' '.join(res_words)
+    l = [r]
+    prediction =-1
+    prediction = dt_loaded.predict(cv_loaded.transform(l).toarray())[0]
+    return render_template('RestaurantReviewPrediction.html', prediction = prediction)
 
 @app.route('/ChurnPrediction')
 def churnpred():

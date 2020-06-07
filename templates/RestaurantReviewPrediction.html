@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Restaurant Review Prediction</title>
+</head>
+<body>
+
+	<header>
+		<div class="container">
+            <div id="brandname">
+                Machine Learning App with Flask
+            </div>
+		<h2>Restaurant Review Prediction</h2>
+	    </div>
+	</header>
+
+	<div class="ml-container">
+
+		<form action="{{ url_for('RReviewPrediction')}}" method="POST">
+		<p>Enter Your Review Here</p>
+		<textarea name="message" rows="4" cols="50"></textarea>
+		<br/>
+
+		<input type="submit" class="btn-info" value="predict">
+	</form>
+
+	</div>
+
+    <div class="Rreviewresult">
+        {% if prediction == 1%}
+    	<h2 style="color:green;">This is Positive Review</h2>
+	    {% elif prediction == 0%}
+	    <h2 style="color:blue;">This is Negative Review</h2>
+	    {% endif %}
+    </div>
+
+</body>
+</html>

@@ -53,3 +53,17 @@ ul li a:hover{
 	left:50px;
 	color:white;
 }
+
+.container{
+	width:100%;
+	margin: auto;
+	overflow: hidden;
+}
+
+.Rreviewresult{
+	border-radius: 15px 50px;
+    background: #345fe4;
+    padding: 20px;
+    width: 200px;
+    height: 150px;
+}
