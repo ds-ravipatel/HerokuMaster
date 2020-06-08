@@ -1,30 +1,31 @@
 from flask import Flask, request, jsonify, render_template
 import numpy as np
 import pickle
-from tensorflow.keras import models
+#from tensorflow.keras import models
 from sklearn.externals.joblib import dump, load
-import tensorflow as tf
-from tensorflow import keras
+#import tensorflow as tf
+#from tensorflow import keras
 import re
 from nltk.stem.porter import PorterStemmer
 from nltk.corpus import stopwords
 
 app = Flask(__name__)
 
-
+'''
 def auc(y_true, y_pred):
     auc = tf.metrics.auc(y_true, y_pred)[1]
     keras.backend.get_session().run(tf.local_variables_initializer())
     return auc
+'''
 
 sal_model = pickle.load(open('Poly_LR_Model.pkl', 'rb'))
 # load the model, and pass in the custom metric function
 #global graph
-graph = tf.get_default_graph()
-churn_model = models.load_model('new_ChurnPredModel.h5', custom_objects={'auc': auc})
+#graph = tf.get_default_graph()
+#churn_model = models.load_model('new_ChurnPredModel.h5', custom_objects={'auc': auc})
 
 #churn_model = models.load_model('ChurnPredModel.h5')
-churn_ss = load('new_std_scaler.bin')
+#churn_ss = load('new_std_scaler.bin')
 
 #below is loaded for NLP- restaurant reviews
 dt_loaded = load('dt_model.pkl')
@@ -79,7 +80,7 @@ def RReviewPrediction():
     prediction =-1
     prediction = dt_loaded.predict(cv_loaded.transform(l).toarray())[0]
     return render_template('RestaurantReviewPrediction.html', prediction = prediction)
-
+'''
 @app.route('/ChurnPrediction')
 def churnpred():
     return render_template('ChurnPrediction.html')
@@ -98,6 +99,6 @@ def churnpredict():
         prediction = prediction[0][0]
         output = prediction>0.5
     return render_template('ChurnPrediction.html', prediction_text='Exited ? '.format(output), percent_text='Chances are : '.format(prediction))
-
+'''
 if __name__ == "__main__":
     app.run(debug=True)
