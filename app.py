@@ -80,6 +80,10 @@ def RReviewPrediction():
     prediction =-1
     prediction = dt_loaded.predict(cv_loaded.transform(l).toarray())[0]
     return render_template('RestaurantReviewPrediction.html', prediction = prediction)
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
 '''
 @app.route('/ChurnPrediction')
 def churnpred():
@@ -100,5 +104,3 @@ def churnpredict():
         output = prediction>0.5
     return render_template('ChurnPrediction.html', prediction_text='Exited ? '.format(output), percent_text='Chances are : '.format(prediction))
 '''
-if __name__ == "__main__":
-    app.run(debug=True)
