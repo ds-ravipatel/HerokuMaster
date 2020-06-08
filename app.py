@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 import numpy as np
-import pickle
+#import pickle
 #from tensorflow.keras import models
 from sklearn.externals.joblib import dump, load
 #import tensorflow as tf
@@ -18,7 +18,8 @@ def auc(y_true, y_pred):
     return auc
 '''
 
-sal_model = pickle.load(open('Poly_LR_Model.pkl', 'rb'))
+#sal_model = pickle.load(open('Poly_LR_Model.pkl', 'rb'))
+sal_model = load('Poly_LR_Model.pkl')
 # load the model, and pass in the custom metric function
 #global graph
 #graph = tf.get_default_graph()
